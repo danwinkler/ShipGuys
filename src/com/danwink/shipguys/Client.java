@@ -10,6 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.danwink.shipguys.components.MoveComponent;
 import com.danwink.shipguys.network.NetworkClient;
 import com.danwink.shipguys.states.PlayState;
 import com.phyloa.dlib.renderer.DScreenHandler;

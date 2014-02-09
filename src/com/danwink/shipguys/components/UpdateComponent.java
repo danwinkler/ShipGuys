@@ -4,7 +4,6 @@ import com.danwink.shipguys.es.EntityComponent;
 
 public class UpdateComponent extends EntityComponent
 {
-	static 
 	{
 		componentName = "update";
 	}

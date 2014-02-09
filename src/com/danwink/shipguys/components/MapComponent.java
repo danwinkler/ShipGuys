@@ -4,14 +4,13 @@ import com.danwink.shipguys.es.EntityComponent;
 
 public class MapComponent extends EntityComponent 
 {
-	Tile[][] map;
-	int width;
-	int height;
-	
-	static 
 	{
 		componentName = "map";
 	}
+	
+	Tile[][] map;
+	int width;
+	int height;
 	
 	public MapComponent( int width, int height )
 	{

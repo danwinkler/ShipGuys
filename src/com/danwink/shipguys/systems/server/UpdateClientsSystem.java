@@ -13,7 +13,7 @@ public class UpdateClientsSystem extends EntitySystem
 	
 	public void update( float d, Entity e, EntityList list )
 	{
-		UpdateComponent uc = (UpdateComponent)e.getComponent( UpdateComponent.componentName );
+		UpdateComponent uc = (UpdateComponent)e.getComponent( "update" );
 		if( uc != null )
 		{
 			if( uc.update )

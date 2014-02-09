@@ -1,8 +1,10 @@
 package com.danwink.shipguys;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.vecmath.Point2f;
+import javax.vecmath.Vector2f;
 
 import com.danwink.shipguys.components.*;
 import com.danwink.shipguys.entities.*;
@@ -17,8 +19,10 @@ public class StaticFiles
 	public static Class[] classes = {
 		String.class,
 		ArrayList.class,
+		HashMap.class,
 		
 		Point2f.class,
+		Vector2f.class,
 		
 		Entity.class,
 		
@@ -29,6 +33,7 @@ public class StaticFiles
 		MapComponent.Tile.class,
 		MoveComponent.class,
 		PositionComponent.class,
-		UpdateComponent.class
+		UpdateComponent.class,
+		PlayerComponent.class,
 	};
 }

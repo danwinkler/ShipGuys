@@ -1,5 +1,8 @@
 package com.danwink.shipguys;
 
+import java.util.HashMap;
+
+import com.danwink.shipguys.components.MoveComponent;
 import com.danwink.shipguys.entities.Player;
 import com.danwink.shipguys.es.EntitySystemManager;
 import com.danwink.shipguys.network.Message;
@@ -17,15 +20,17 @@ public class Server
 	
 	UpdateClientsSystem ucs;
 	
+	HashMap<Integer, Player> players = new HashMap<Integer, Player>();
+	
 	public void begin()
 	{
 		ns = new NetworkServer( StaticFiles.classes );
 		
+		reset();
+		
 		sl = new ServerLoop();
 		t = new Thread( sl );
 		t.start();
-	
-		reset();
 	}
 	
 	public void reset()
@@ -33,6 +38,7 @@ public class Server
 		esm = new EntitySystemManager();
 		esm.addUpdate( new PlayerSystem() );
 		esm.addUpdate( ucs = new UpdateClientsSystem() );
+		esm.addUpdate( new MoveSystem() );
 	}
 	
 	public void update( float t )
@@ -41,21 +47,46 @@ public class Server
 		{
 			Message m = ns.getNextServerMessage();
 			
-			System.out.println( m.messageType );
+			System.out.println( m.messageType ); 
 			
 			switch( m.messageType )
 			{
 			case "CONNECTED":
-				esm.add( new Player( m.sender ) );
+			{
+				Player p = new Player( m.sender );
+				esm.add( p );
+				players.put( m.sender, p );
 				break;
+			}
+			case "MOVE_START":
+			{
+				String dir = (String)m.message;
+				if( dir.equals( "UP" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.y = -1; }
+				else if( dir.equals( "DOWN" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.y = 1; }
+				else if( dir.equals( "LEFT" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.x = -1; }
+				else if( dir.equals( "RIGHT" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.x = 1; }
+				break;
+			}
+			case "MOVE_END":
+			{
+				String dir = (String)m.message;
+				if( dir == "UP" ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.y = 0; }
+				else if( dir.equals( "DOWN" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.y = 0; }
+				else if( dir.equals( "LEFT" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.x = 0; }
+				else if( dir.equals( "RIGHT" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.x = 0; }
+				break;
+			}
 			}
 		}
 		
 		esm.update( t );
 		
-		ns.sendToAllClients( new Message( "ENTITY_UPDATE_LIST", ucs.toUpdate ) );
-		
-		ucs.clearList();
+		if( ucs.toUpdate.size() > 0 )
+		{
+			System.out.println( "ENTITY_UPDATE_LIST" );
+			ns.sendToAllClients( new Message( "ENTITY_UPDATE_LIST", ucs.toUpdate ) );
+			ucs.clearList();
+		}
 	}
 	
 	public static void main( String[] args )

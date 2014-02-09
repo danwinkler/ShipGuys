@@ -7,9 +7,9 @@ import org.newdawn.slick.Graphics;
 
 public class EntitySystemManager
 {
-	EntityList list = new EntityList();
-	ArrayList<EntitySystem> updateSystems = new ArrayList<EntitySystem>();
-	ArrayList<EntitySystem> renderSystems = new ArrayList<EntitySystem>();
+	public EntityList list = new EntityList();
+	public ArrayList<EntitySystem> updateSystems = new ArrayList<EntitySystem>();
+	public ArrayList<EntitySystem> renderSystems = new ArrayList<EntitySystem>();
 	
 	public void add( Entity e )
 	{

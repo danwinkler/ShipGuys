@@ -6,7 +6,6 @@ import com.danwink.shipguys.es.EntityComponent;
 
 public class PositionComponent extends EntityComponent
 {
-	static 
 	{
 		componentName = "position";
 	}
