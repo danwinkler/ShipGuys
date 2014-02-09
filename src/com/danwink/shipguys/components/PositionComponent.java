@@ -6,5 +6,10 @@ import com.danwink.shipguys.es.EntityComponent;
 
 public class PositionComponent extends EntityComponent
 {
-	Point2f pos;
+	static 
+	{
+		componentName = "position";
+	}
+	
+	public Point2f pos = new Point2f();
 }

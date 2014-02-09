@@ -2,6 +2,7 @@ package com.danwink.shipguys.es;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class EntityList {
 	int nextKey = 0;
@@ -11,9 +12,20 @@ public class EntityList {
 	
 	public void add( Entity e )
 	{
-		e.id = nextKey++;
 		map.put( e.id, e );
 		list.add( e );
+	}
+	
+	public void update( Entity e )
+	{
+		if( map.containsKey( e.id ) )
+		{
+			map.get( e.id ).update( e );
+		}
+		else
+		{
+			add( e );
+		}
 	}
 	
 	public Entity getIndex( int index )
@@ -34,5 +46,13 @@ public class EntityList {
 	public void remove( Entity e )
 	{
 		list.remove( map.remove( e.id ) );
+	}
+	
+	public void addAll( List<Entity> el )
+	{
+		for( Entity e : el )
+		{
+			add( e );
+		}
 	}
 }

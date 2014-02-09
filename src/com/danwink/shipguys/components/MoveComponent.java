@@ -4,5 +4,8 @@ import com.danwink.shipguys.es.EntityComponent;
 
 public class MoveComponent extends EntityComponent 
 {
-
+	static 
+	{
+		componentName = "move";
+	}
 }

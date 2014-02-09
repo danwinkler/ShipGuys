@@ -8,8 +8,9 @@ public class MapComponent extends EntityComponent
 	int width;
 	int height;
 	
+	static 
 	{
-		name = "map";
+		componentName = "map";
 	}
 	
 	public MapComponent( int width, int height )
