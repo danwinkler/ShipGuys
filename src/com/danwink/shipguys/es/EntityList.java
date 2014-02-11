@@ -7,8 +7,8 @@ import java.util.List;
 public class EntityList {
 	int nextKey = 0;
 	
-	ArrayList<Entity> list = new ArrayList<Entity>();
-	HashMap<Integer, Entity> map = new HashMap<Integer, Entity>();
+	public ArrayList<Entity> list = new ArrayList<Entity>();
+	public HashMap<Integer, Entity> map = new HashMap<Integer, Entity>();
 	
 	public void add( Entity e )
 	{

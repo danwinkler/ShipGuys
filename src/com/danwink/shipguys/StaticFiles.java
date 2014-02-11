@@ -29,8 +29,7 @@ public class StaticFiles
 		Player.class,
 		Ship.class,
 		
-		MapComponent.class,
-		MapComponent.Tile.class,
+		MapComponent.class, MapComponent.Tile.class, MapComponent.Tile[].class, MapComponent.Tile[][].class,
 		MoveComponent.class,
 		PositionComponent.class,
 		UpdateComponent.class,

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.danwink.shipguys.components.MoveComponent;
 import com.danwink.shipguys.entities.Player;
+import com.danwink.shipguys.entities.Ship;
 import com.danwink.shipguys.es.EntitySystemManager;
 import com.danwink.shipguys.network.Message;
 import com.danwink.shipguys.network.NetworkServer;
@@ -39,6 +40,9 @@ public class Server
 		esm.addUpdate( new PlayerSystem() );
 		esm.addUpdate( ucs = new UpdateClientsSystem() );
 		esm.addUpdate( new MoveSystem() );
+		
+		
+		esm.add( new Ship() );
 	}
 	
 	public void update( float t )
@@ -56,6 +60,13 @@ public class Server
 				Player p = new Player( m.sender );
 				esm.add( p );
 				players.put( m.sender, p );
+				
+				ns.sendToClient( m.sender, new Message( "ENTITY_UPDATE_LIST", esm.list.list ) );
+				break;
+			}
+			case "DISCONNECTED":
+			{
+				//TODO: handle
 				break;
 			}
 			case "MOVE_START":
@@ -83,7 +94,6 @@ public class Server
 		
 		if( ucs.toUpdate.size() > 0 )
 		{
-			System.out.println( "ENTITY_UPDATE_LIST" );
 			ns.sendToAllClients( new Message( "ENTITY_UPDATE_LIST", ucs.toUpdate ) );
 			ucs.clearList();
 		}
