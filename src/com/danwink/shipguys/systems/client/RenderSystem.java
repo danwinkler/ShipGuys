@@ -13,26 +13,24 @@ import com.danwink.shipguys.es.EntitySystem;
 
 public class RenderSystem extends EntitySystem
 {
-	public static int tileSize = 10;
-	
 	public void render( Graphics g, Entity e, EntityList list )
 	{
 		if( e instanceof Player )
 		{
-			PositionComponent pc = (PositionComponent)e.getComponent( "position" );
+			PositionComponent pc = e.getComponent( PositionComponent.class );
 			g.setColor( Color.white );
 			g.drawOval( pc.pos.x - 5, pc.pos.y - 5, 10, 10 );
 		}
 		else if( e instanceof Ship )
 		{
-			MapComponent mc = (MapComponent)e.getComponent( "map" );
+			MapComponent mc = e.getComponent( MapComponent.class );
 			for( int y = 0; y < mc.height; y++ )
 			{
 				for( int x = 0; x < mc.width; x++ )
 				{
 					if( !mc.map[x][y].passable )
 					{
-						g.drawRect( x*tileSize, y*tileSize, tileSize, tileSize );
+						g.drawRect( x*mc.tileSize, y*mc.tileSize, mc.tileSize, mc.tileSize );
 					}
 				}
 			}

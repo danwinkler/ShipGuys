@@ -3,6 +3,7 @@ package com.danwink.shipguys;
 import java.util.HashMap;
 
 import com.danwink.shipguys.components.MoveComponent;
+import com.danwink.shipguys.components.PositionComponent;
 import com.danwink.shipguys.entities.Player;
 import com.danwink.shipguys.entities.Ship;
 import com.danwink.shipguys.es.EntitySystemManager;
@@ -42,7 +43,7 @@ public class Server
 		esm.addUpdate( new MoveSystem() );
 		
 		
-		esm.add( new Ship() );
+		esm.add( new Ship(), "ship" );
 	}
 	
 	public void update( float t )
@@ -51,13 +52,12 @@ public class Server
 		{
 			Message m = ns.getNextServerMessage();
 			
-			System.out.println( m.messageType ); 
-			
 			switch( m.messageType )
 			{
 			case "CONNECTED":
 			{
-				Player p = new Player( m.sender );
+				Player p = new Player( m.sender );  
+				p.getComponent( PositionComponent.class ).pos.set( 20, 20 );
 				esm.add( p );
 				players.put( m.sender, p );
 				
@@ -72,19 +72,21 @@ public class Server
 			case "MOVE_START":
 			{
 				String dir = (String)m.message;
-				if( dir.equals( "UP" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.y = -1; }
-				else if( dir.equals( "DOWN" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.y = 1; }
-				else if( dir.equals( "LEFT" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.x = -1; }
-				else if( dir.equals( "RIGHT" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.x = 1; }
+				MoveComponent mc = players.get( m.sender ).getComponent( MoveComponent.class );
+				if( dir.equals( "UP" ) ) { mc.speedVec.y = -1; }
+				else if( dir.equals( "DOWN" ) ) { mc.speedVec.y = 1; }
+				else if( dir.equals( "LEFT" ) ) { mc.speedVec.x = -1; }
+				else if( dir.equals( "RIGHT" ) ) { mc.speedVec.x = 1; }
 				break;
 			}
 			case "MOVE_END":
 			{
 				String dir = (String)m.message;
-				if( dir == "UP" ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.y = 0; }
-				else if( dir.equals( "DOWN" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.y = 0; }
-				else if( dir.equals( "LEFT" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.x = 0; }
-				else if( dir.equals( "RIGHT" ) ) { ((MoveComponent)players.get( m.sender ).getComponent( "move" )).speedVec.x = 0; }
+				MoveComponent mc = players.get( m.sender ).getComponent( MoveComponent.class );
+				if( dir.equals( "UP" ) ) { mc.speedVec.y = 0; }
+				else if( dir.equals( "DOWN" ) ) { mc.speedVec.y = 0; }
+				else if( dir.equals( "LEFT" ) ) { mc.speedVec.x = 0; }
+				else if( dir.equals( "RIGHT" ) ) { mc.speedVec.x = 0; }
 				break;
 			}
 			}

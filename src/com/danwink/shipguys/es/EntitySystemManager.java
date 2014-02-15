@@ -16,6 +16,16 @@ public class EntitySystemManager
 		list.add( e );
 	}
 	
+	public void add( Entity e, String name )
+	{
+		list.add( e, name );
+	}
+	
+	public void name( Entity e, String name )
+	{
+		list.name( e, name );
+	}
+	
 	public void addAll( List<Entity> el )
 	{
 		list.addAll( el );

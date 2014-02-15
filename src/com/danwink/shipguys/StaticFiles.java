@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.vecmath.Point2f;
+import javax.vecmath.Point2i;
 import javax.vecmath.Vector2f;
 
 import com.danwink.shipguys.components.*;
@@ -23,6 +24,7 @@ public class StaticFiles
 		
 		Point2f.class,
 		Vector2f.class,
+		Point2i.class,
 		
 		Entity.class,
 		

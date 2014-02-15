@@ -1,6 +1,8 @@
 package com.danwink.shipguys;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -10,7 +12,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import com.danwink.shipguys.components.MoveComponent;
 import com.danwink.shipguys.network.NetworkClient;
 import com.danwink.shipguys.states.PlayState;
 import com.phyloa.dlib.renderer.DScreenHandler;
@@ -82,11 +83,12 @@ public class Client extends BasicGame
 			
 			PrintWriter pw = null;
 			try {
-				pw = new PrintWriter( "tmp/error.log" );
+				pw = new PrintWriter( new FileOutputStream( new File( "tmp/error.log" ), true ) );
 			} catch (FileNotFoundException e) {
 				System.exit( 0 );
 				e.printStackTrace();
 			}
+			pw.append( System.currentTimeMillis() + "\n" );
 			ex.printStackTrace( pw );
 			
 			pw.flush();

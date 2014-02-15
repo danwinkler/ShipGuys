@@ -20,6 +20,6 @@ public class Player extends Entity
 	public Player( int sender )
 	{
 		this();
-		((PlayerComponent)getComponent( "player" )).playerId = sender;
+		getComponent( PlayerComponent.class ).playerId = sender;
 	}
 }

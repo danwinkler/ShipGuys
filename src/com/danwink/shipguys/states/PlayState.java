@@ -29,16 +29,12 @@ public class PlayState extends DScreen<GameContainer, Graphics> implements Input
 		{
 			Message m = c.nc.getNextClientMessage();
 			
-			System.out.println( m.messageType );
-			
 			switch( m.messageType )
 			{
 			case "ENTITY_UPDATE_LIST":
 			{
 				ArrayList<Entity> el = (ArrayList<Entity>)m.message;
 				esm.updateEntities( el );
-				System.out.println( esm.list.size() );
-				
 				break;
 			}
 			}
