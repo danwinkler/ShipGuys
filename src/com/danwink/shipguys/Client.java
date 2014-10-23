@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
 
 import com.danwink.shipguys.network.NetworkClient;
 import com.danwink.shipguys.states.PlayState;
-import com.phyloa.dlib.renderer.DScreenHandler;
+import com.phyloa.dlib.game.DScreenHandler;
 
 public class Client extends BasicGame
 {

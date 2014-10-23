@@ -11,8 +11,8 @@ import com.danwink.shipguys.Client;
 import com.danwink.shipguys.es.*;
 import com.danwink.shipguys.network.Message;
 import com.danwink.shipguys.systems.client.*;
-import com.phyloa.dlib.renderer.DScreen;
-import com.phyloa.dlib.renderer.DScreenHandler;
+import com.phyloa.dlib.game.DScreen;
+import com.phyloa.dlib.game.DScreenHandler;
 
 public class PlayState extends DScreen<GameContainer, Graphics> implements InputListener
 {
@@ -38,7 +38,7 @@ public class PlayState extends DScreen<GameContainer, Graphics> implements Input
 				break;
 			}
 			}
-		}
+		} 
 		esm.update( d );
 	}
 
